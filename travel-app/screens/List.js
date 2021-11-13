@@ -291,7 +291,12 @@ class Articles extends Component {
           style={{ overflow:'visible', height: 280 }}
           data={this.props.destinations}
           keyExtractor={(item, index) => `${item.id}`}
-          onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX }} }])}
+          onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX }} }],
+            {
+              listener: (event) => console.log(event),
+              useNativeDriver: false
+            },
+          )}
           renderItem={({ item }) => this.renderDestination(item)}
         />
         {this.renderDots()}

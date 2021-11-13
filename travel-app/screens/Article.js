@@ -111,8 +111,9 @@ class Article extends Component {
   }
 
   renderDots = () => {
-    const { navigation } = this.props;
-    const article = navigation.getParam('article');
+    const { route ,navigation } = this.props;
+    //const article = navigation.getParam('article');
+    const { article } = route.params;
     const dotPosition = Animated.divide(this.scrollX, width);
 
     return (
@@ -153,8 +154,9 @@ class Article extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
-    const article = navigation.getParam('article');
+    const { route, navigation } = this.props;
+    const { article } = route.params;
+    //const article = navigation.getParam('article');
 
     return (
       <View style={styles.flex}>
@@ -167,7 +169,12 @@ class Article extends Component {
             decelerationRate={0}
             scrollEventThrottle={16}
             snapToAlignment="center"
-            onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }])}
+            onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX }} }],
+              {
+                listener: (event) => console.log(event),
+                useNativeDriver: false
+              },
+            )}
           >
             {
               article.images.map((img, index) => 
